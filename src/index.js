@@ -77,18 +77,20 @@ fetchToys();
 
     let div = event.target.closest('div')
     let id = parseInt(div.dataset.id)
-    let likes = parseInt(div.querySelector('p').textContent)
+    let likes = div.querySelector('p')
+    let newLikes = parseInt(likes.textContent) + 1
+
 
     if(event.target.className === 'like-btn'){
       fetch(`http://localhost:3000/toys/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json'
         },
-        body: JSON.stringify({likes: likes ++})
+        body: JSON.stringify({likes: newLikes})
       })
-      likes = `${likes ++} likes`
+      likes.textContent = `${newLikes} likes`
     }
 
 
